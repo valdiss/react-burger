@@ -1,15 +1,20 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 import classes from './BuildControl.css';
 
 const buildControl = props => (
     <div className={classes.BuildControl}>
         <div className={classes.Label}>{props.label}</div>
-        <button
+        <Button
+            size="small"
             onClick={props.ingredientRemoved}
             className={classes.Less}
-            disabled={props.disabled}>Less</button>
-        <button onClick={props.ingredientAdded} className={classes.More}>More</button>
+            disabled={props.disabled}>Less</Button>
+        <Button
+            size="small"
+            onClick={props.ingredientAdded}
+            className={classes.More}>More</Button>
     </div>
 );
 

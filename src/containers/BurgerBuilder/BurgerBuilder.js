@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 
 import Burger from '../../components/Burger/Burger';
+import Modal from '../../UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
 const INGREDIENT_PRICES = {
@@ -18,7 +20,17 @@ class BurgerBuilder extends PureComponent {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false,
+        purchasing: false
+    }
+
+    updatePurchaseState = (ingredients) => {
+        const sum = Object.keys(ingredients)
+            .map(igKey => {
+                return ingredients[igKey];
+            }).reduce((sum, currentEl) => sum + currentEl, 0);
+        this.setState({ purchasable: sum > 0 });
     }
 
     addIngredientHandler = (type) => {
@@ -31,7 +43,8 @@ class BurgerBuilder extends PureComponent {
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
-        this.setState({ ingredients: updatedIngredients, totalPrice: newPrice })
+        this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
+        this.updatePurchaseState(updatedIngredients);
     }
 
     removeIngredientHandler = (type) => {
@@ -45,8 +58,13 @@ class BurgerBuilder extends PureComponent {
             const priceDeduction = INGREDIENT_PRICES[type];
             const oldPrice = this.state.totalPrice;
             const newPrice = oldPrice - priceDeduction;
-            this.setState({ ingredients: updatedIngredients, totalPrice: newPrice })
+            this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
+            this.updatePurchaseState(updatedIngredients);
         }
+    }
+
+    purchasingHandler = () => {
+        this.setState({ purchasing: true });
     }
 
     render() {
@@ -60,9 +78,14 @@ class BurgerBuilder extends PureComponent {
 
         return (
             <Fragment>
+                <Modal purchasing={this.state.purchasing}>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
                     disabledInfo={disabledInfo}
+                    purchasable={this.state.purchasable}
+                    purchasing={this.purchasingHandler}
                     price={this.state.totalPrice}
                     ingredientRemoved={this.removeIngredientHandler}
                     ingredientAdded={this.addIngredientHandler}></BuildControls>

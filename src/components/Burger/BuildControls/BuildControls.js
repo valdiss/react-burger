@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 import BuildControl from '../BuildControls/BuildControl/BuildControl';
 
@@ -24,7 +25,14 @@ const buildControls = props => (
                     label={control.label} />
             })
         }
-    </div>
+        <br />
+        <Button
+            disabled={!props.purchasable}
+            size="large"
+            variant="contained"
+            color="primary"
+            onClick={props.purchasing}>ORDER NOW</Button>
+    </div >
 );
 
 export default buildControls;
