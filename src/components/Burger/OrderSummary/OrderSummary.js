@@ -10,14 +10,14 @@ const orderSummary = props => {
     });
 
     return (
-        <Fragment>
-            <h2 style={{ textAlign: 'center' }}>Your Order</h2>
-            <p>A Delicious burger with the following ingredients:</p>
-            <ul>
-                {ingredientSummary}
-            </ul>
-            <p>Proceed to checkout?</p>
-        </Fragment>
+            <Fragment>
+                <h2 style={{ textAlign: 'center' }}>Your Order</h2>
+                <p>A Delicious burger with the following ingredients:</p>
+                <ul>
+                    {ingredientSummary}
+                </ul>
+                <p>Proceed to checkout?</p>
+            </Fragment>
     )
 };
 

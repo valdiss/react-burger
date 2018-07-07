@@ -67,6 +67,11 @@ class BurgerBuilder extends PureComponent {
         this.setState({ purchasing: true });
     }
 
+    closeModalHandler = () => {
+        console.log('HEY!!');
+        this.setState({ purchasing: false });
+    }
+
     render() {
         const disabledInfo = {
             ...this.state.ingredients
@@ -78,7 +83,7 @@ class BurgerBuilder extends PureComponent {
 
         return (
             <Fragment>
-                <Modal purchasing={this.state.purchasing}>
+                <Modal purchasing={this.state.purchasing} closeModal={this.closeModalHandler}>
                     <OrderSummary ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
@@ -88,7 +93,8 @@ class BurgerBuilder extends PureComponent {
                     purchasing={this.purchasingHandler}
                     price={this.state.totalPrice}
                     ingredientRemoved={this.removeIngredientHandler}
-                    ingredientAdded={this.addIngredientHandler}></BuildControls>
+                    ingredientAdded={this.addIngredientHandler}>
+                </BuildControls>
             </Fragment>
         );
     }
