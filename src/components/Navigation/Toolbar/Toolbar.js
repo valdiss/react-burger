@@ -1,8 +1,9 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Typography, IconButton, Button } from "@material-ui/core";
+import { IconButton, Button } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import Logo from "../../Layout/Logo/Logo";
 
 import classes from "./Toolbar.css";
 
@@ -14,9 +15,7 @@ const toolbar = props => {
           <IconButton color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="title" color="inherit">
-            Burger Builder
-          </Typography>
+          <Logo className={classes.Logo} />
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
